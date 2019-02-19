@@ -99,14 +99,16 @@ abstract class RegenerateUrlRewritesCategoryAbstract extends RegenerateUrlRewrit
             $categoryUrlRewriteResult = $this->_getCategoryUrlRewriteGenerator()->generate($category, true);
             $this->_doBunchReplaceUrlRewrites($categoryUrlRewriteResult);
 
-            $productUrlRewriteResult = $this->_getUrlRewriteHandler()->generateProductUrlRewrites($category);
+            if (!$this->_commandOptions['fastCategoryBuild']) {
+                $productUrlRewriteResult = $this->_getUrlRewriteHandler()->generateProductUrlRewrites($category);
 
-            // fix for double slashes issue
-            foreach ($productUrlRewriteResult as &$urlRewrite) {
-                $urlRewrite->setRequestPath($this->_clearRequestPath($urlRewrite->getRequestPath()));
+                // fix for double slashes issue
+                foreach ($productUrlRewriteResult as &$urlRewrite) {
+                    $urlRewrite->setRequestPath($this->_clearRequestPath($urlRewrite->getRequestPath()));
+                }
+
+                $this->_doBunchReplaceUrlRewrites($productUrlRewriteResult, 'Product');
             }
-
-            $this->_doBunchReplaceUrlRewrites($productUrlRewriteResult, 'Product');
         } catch (\Exception $e) {
             // debugging
             $this->_displayConsoleMsg('Exception: '. $e->getMessage() .' Category ID: '. $category->getId());

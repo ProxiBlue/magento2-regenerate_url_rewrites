@@ -107,6 +107,8 @@ or
 ## INFO
 When you regenerate URL rewrites of some category then you regenerate URL rewrites of all products from this category AND URL rewrites of all subcategories (all levels - Magento use recursive logic) AND all products from this subcategories. This is the built-in Magento logic. So, take into account that regenerating of URL rewrites of any category (specially from top level) is a "heavy" process.
 
+You can use "--fast-category-build" to not build the products. This is handy if none of the category URLs had actually changed and you simply want o ensure they are in rewrite table. 
+
 ## HOW TO USE DEBUG INFORMATION:
 If you see in the console log a message(-s) like this:
 >`URL key for specified store already exists. Product ID: 1680. Request path: modelautos/schaal/revell-honda-nsx-1990-grijs-1-18.html`

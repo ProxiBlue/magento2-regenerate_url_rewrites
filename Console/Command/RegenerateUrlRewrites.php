@@ -101,7 +101,13 @@ class RegenerateUrlRewrites extends RegenerateUrlRewritesCategoryAbstract
                     null,
                     InputArgument::OPTIONAL,
                     'Specific product ID, e.g.: 107 (Pro version only)'
-                )
+                ),
+                new InputOption(
+                    self::INPUT_KEY_FAST_CATEGORY_BUILD,
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Fast Category Build'
+                ),
             ]);
     }
 
@@ -204,6 +210,10 @@ class RegenerateUrlRewrites extends RegenerateUrlRewritesCategoryAbstract
 
         if (isset($options[self::INPUT_KEY_SAVE_REWRITES_HISTORY]) && $options[self::INPUT_KEY_SAVE_REWRITES_HISTORY] === true) {
             $this->_commandOptions['saveOldUrls'] = true;
+        }
+
+        if (isset($options[self::INPUT_KEY_FAST_CATEGORY_BUILD]) && $options[self::INPUT_KEY_FAST_CATEGORY_BUILD] === true) {
+            $this->_commandOptions['fastCategoryBuild'] = true;
         }
 
         if (isset($options[self::INPUT_KEY_NO_REINDEX]) && $options[self::INPUT_KEY_NO_REINDEX] === true) {
